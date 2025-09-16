@@ -6,6 +6,6 @@
 
 void DrawableEntity::draw(Renderer &renderer) {
     auto position = this->position.getPosition();
-    renderer.render({position.x, position.y}, spriteId);
+    renderer.render({position.x, position.y}, this->spriteName);
 }
 

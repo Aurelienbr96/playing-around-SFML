@@ -9,11 +9,11 @@
 
 class DrawableEntity {
     protected:
-        unsigned int spriteId;
+        Sprite::Name spriteName;
         Position position;
     public:
-        DrawableEntity(Position pos, unsigned int spriteId)
-            : position(pos), spriteId(spriteId) {}
+        DrawableEntity(Position pos, Sprite::Name spriteName)
+            : position(pos), spriteName(spriteName) {}
         void draw(Renderer& renderer);
 };
 

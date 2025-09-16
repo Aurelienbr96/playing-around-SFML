@@ -18,6 +18,12 @@ add_executable(MySFMLApp main.cpp
         domain/drawable-entity.cpp
         domain/drawable-entity.h
         domain/renderer.h
+        application/spell-book.cpp
+        application/spell-book.h
+        domain/fireball.cpp
+        domain/fireball.h
+        world/projectiles.h
+        world/projectiles.cpp
 )
 
 # Link SFML (modern target names)

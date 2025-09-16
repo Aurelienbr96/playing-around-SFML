@@ -6,16 +6,21 @@
 #define CHARACTER_H
 #include "drawable-entity.h"
 #include "position.h"
+#include "../world/projectiles.h"
 
 class Player: public DrawableEntity {
     int speedFactor;
+    unsigned int playerId;
+
 
 public:
-    explicit Player(PositionData pos, int speedFactor, unsigned int spriteId);
+    explicit Player(PositionData pos, int speedFactor, Sprite::Name spriteName, unsigned int playerId, Rect rect);
     void moveLeft();
     void moveRight();
     void moveUp();
     void moveDown();
+    void setSpriteName(Sprite::Name spriteName);
+    void castSpell(unsigned int spellId, Projectiles& projectiles);
 
     PositionData getPosition();
 };

@@ -10,8 +10,8 @@
 SFMLRenderer::SFMLRenderer(sf::RenderWindow *w, SpriteLibrary& spriteLibrary): window(w), spriteLibrary(spriteLibrary) {}
 
 
-void SFMLRenderer::render(PositionData pos, unsigned int spriteId) {
-    auto sprite = this->spriteLibrary.getSprite(spriteId);
+void SFMLRenderer::render(PositionData pos, Sprite::Name spriteName) {
+    auto sprite = this->spriteLibrary.getSprite(spriteName);
     sprite.setPosition(sf::Vector2f(pos.x, pos.y ));
     this->window->draw(sprite);
 }

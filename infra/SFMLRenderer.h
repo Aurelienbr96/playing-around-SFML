@@ -16,7 +16,7 @@ class SFMLRenderer: public Renderer {
     public:
     SFMLRenderer(sf::RenderWindow *w, SpriteLibrary& spriteLibrary);
 
-    void render(PositionData pos, unsigned int spriteId);
+    void render(PositionData pos, Sprite::Name spriteName);
 };
 
 #endif //SFMLRENDERER_H

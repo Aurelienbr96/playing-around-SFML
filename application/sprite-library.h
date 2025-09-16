@@ -8,12 +8,27 @@
 
 #include "../../../../../opt/homebrew/Cellar/sfml/3.0.1/include/SFML/Graphics/Sprite.hpp"
 
+namespace Sprite {
+    enum Name {
+        Fireball,
+        BackgroundHigh,
+        BackgroundHigh2,
+        BackgroundLow,
+        BackgroundLow2,
+        BackgroundMedium,
+        BackgroundMedium2,
+        FlyingBoonUp,
+        FlyingBoonDown,
+        FlyingBoonCalm,
+    };
+}
+
 class SpriteLibrary {
-    std::unordered_map<unsigned int, sf::Sprite> spriteLib;
+    std::unordered_map<Sprite::Name, sf::Sprite> spriteLib;
     public:
       SpriteLibrary() = default;
-      void addSprite(unsigned int spriteId, sf::Sprite& sprite);
-      sf::Sprite& getSprite(unsigned int id);
+      void addSprite(Sprite::Name spriteName, sf::Sprite& sprite);
+      sf::Sprite& getSprite(Sprite::Name spriteName);
 };
 
 #endif //SPRITE_LIBRARY_H

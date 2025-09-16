@@ -5,9 +5,7 @@
 #include "position.h"
 
 
-Position::Position(float x, float y) {
-    this->x = x;
-    this->y = y;
+Position::Position(float x, float y, unsigned int width, unsigned int height): x(x), y(y), width(width), height(height) {
 }
 
 void Position::setPosition(PositionData pos) {

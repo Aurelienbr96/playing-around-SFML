@@ -5,16 +5,16 @@
 #include "sprite-library.h"
 #include <iostream>
 
-void SpriteLibrary::addSprite(unsigned int spriteId, sf::Sprite &sprite) {
-    if (spriteLib.find(spriteId) != spriteLib.end()) {
+void SpriteLibrary::addSprite(Sprite::Name spriteName, sf::Sprite &sprite) {
+    if (spriteLib.find(spriteName) != spriteLib.end()) {
         // Already exists
-        std::cout << "Sprite with ID " << spriteId << " already exists!\n";
+        std::cout << "Sprite with ID " << spriteName << " already exists!\n";
         return;
     }
-    this->spriteLib.insert({spriteId, sprite});
+    this->spriteLib.insert({spriteName, sprite});
 }
 
 
-sf::Sprite &SpriteLibrary::getSprite(const unsigned int id) {
-    return this->spriteLib.at(id);
+sf::Sprite &SpriteLibrary::getSprite(Sprite::Name spriteName) {
+    return this->spriteLib.at(spriteName);
 }

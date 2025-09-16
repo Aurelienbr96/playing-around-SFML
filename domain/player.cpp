@@ -5,9 +5,9 @@
 
 #include <utility>
 #include "position.h"
-Player::Player(PositionData pos, int speedFactor, unsigned int spriteId)
-    : DrawableEntity(Position(pos.x, pos.y), spriteId), // call base constructor
-      speedFactor(speedFactor) {}
+Player::Player(PositionData pos, int speedFactor, Sprite::Name spriteName, unsigned int playerId, Rect rect)
+    : DrawableEntity(Position(pos.x, pos.y, rect.width, rect.height), spriteName), // call base constructor
+      speedFactor(speedFactor), playerId(playerId) {}
 
 
 // MOVEMENT METHODS
@@ -15,6 +15,10 @@ Player::Player(PositionData pos, int speedFactor, unsigned int spriteId)
 void Player::moveDown() {
     const float mov = this->speedFactor * 2;
     this->position.setPosition({this->getPosition().x, this->getPosition().y + mov});
+}
+
+void Player::setSpriteName(Sprite::Name spriteName) {
+    this->spriteName = spriteName;
 }
 
 void Player::moveUp() {
@@ -38,4 +42,8 @@ void Player::moveRight() {
 
 PositionData Player::getPosition() {
     return this->position.getPosition();
+}
+
+void Player::castSpell(unsigned int spellId, Projectiles& projectiles) {
+    projectiles.addProjectile(spellId, {this->getPosition().x, this->getPosition().y});
 }

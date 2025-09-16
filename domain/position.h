@@ -10,11 +10,19 @@ struct PositionData {
     float y;
 };
 
+struct Rect {
+    unsigned int height;
+    unsigned int width;
+};
+
 class Position {
     float x;
     float y;
+    unsigned int width;
+    unsigned int height;
     public:
-    Position(float x, float y);
+    Position(float x, float y, unsigned int width, unsigned int height);
+
     PositionData getPosition();
     void setPosition(PositionData pos);
 };
