@@ -19,7 +19,6 @@ PositionData Position::getPosition() {
 }
 
 void Position::updatePosition(PositionData pos) {
-        this->x = this->x + 0.2;
-        this->y = this->y - 0.2;
-
+        this->x = this->x + pos.x;
+        this->y = this->y - pos.y;
 }

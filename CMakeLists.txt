@@ -24,6 +24,7 @@ add_executable(MySFMLApp main.cpp
         domain/fireball.h
         world/projectiles.h
         world/projectiles.cpp
+        domain/direction.h
 )
 
 # Link SFML (modern target names)

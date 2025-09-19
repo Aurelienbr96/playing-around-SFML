@@ -4,6 +4,7 @@
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
+#include "direction.h"
 #include "drawable-entity.h"
 #include "position.h"
 #include "../world/projectiles.h"
@@ -11,6 +12,7 @@
 class Player: public DrawableEntity {
     int speedFactor;
     unsigned int playerId;
+    Direction currentDirection;
 
 public:
     explicit Player(PositionData pos, float speedFactor, Sprite::Name spriteName, unsigned int playerId, Rect rect);

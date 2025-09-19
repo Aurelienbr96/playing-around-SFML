@@ -9,6 +9,7 @@
 #include "../application/spell-book.h"
 #include "../application/sprite-library.h"
 #include "../domain/fireball.h"
+#include "../domain/direction.h"
 
 class Projectiles {
     std::vector<Fireball> projectiles;
@@ -17,7 +18,7 @@ class Projectiles {
     public:
     Projectiles(SpellBook& spellbook, SpriteLibrary& spritelibrary);
     std::vector<Fireball> getProjectiles() const;
-    void addProjectile(unsigned int spellId, PositionData initialPosition);
+    void addProjectile(unsigned int spellId, PositionData initialPosition, Direction direction);
     void update();
     void deleteProjectile(unsigned int projectilId);
 };

@@ -9,10 +9,10 @@
 Projectiles::Projectiles(SpellBook& spellbook, SpriteLibrary& spriteLibrary): spellbook(spellbook), spritelibrary(spriteLibrary) {
 }
 
-void Projectiles::addProjectile(unsigned int projectileId, PositionData intialPosition) {
+void Projectiles::addProjectile(unsigned int projectileId, PositionData intialPosition, Direction direction) {
     if (auto spellDef = this->spellbook.get(projectileId)) {
         if (spellDef->name == "fireball") {
-            Fireball fireball = Fireball({intialPosition.x + 20, intialPosition.y + 20}, spellDef->spriteName, spellDef->rect);
+            Fireball fireball = Fireball({intialPosition.x + 20, intialPosition.y + 20}, spellDef->spriteName, spellDef->rect, direction);
             this->projectiles.push_back(fireball);
         }
     }
@@ -20,7 +20,7 @@ void Projectiles::addProjectile(unsigned int projectileId, PositionData intialPo
 
 void Projectiles::update() {
     for (auto& projectile : this->projectiles) {
-        projectile.move({0,0.2});
+        projectile.move();
     }
 }
 

@@ -5,6 +5,7 @@
 #include <utility>
 #include "position.h"
 #include "player.h"
+#include "direction.h"
 
 Player::Player(PositionData pos, float speedFactor, Sprite::Name spriteName, unsigned int playerId, Rect rect)
     : DrawableEntity(Position(pos.x, pos.y, rect.width, rect.height), spriteName), // call base constructor
@@ -16,6 +17,7 @@ Player::Player(PositionData pos, float speedFactor, Sprite::Name spriteName, uns
 void Player::moveDown() {
     const float mov = this->speedFactor * 0.5;
     this->position.setPosition({this->getPosition().x, this->getPosition().y + mov});
+    this->currentDirection = Down;
 }
 
 void Player::setSpriteName(Sprite::Name spriteName) {
@@ -26,18 +28,21 @@ void Player::moveUp() {
     const float mov = this->speedFactor * 0.5;
 
     this->position.setPosition({this->getPosition().x, this->getPosition().y - mov});
+    this->currentDirection = Up;
 }
 
 void Player::moveLeft() {
     const float mov = this->speedFactor * 0.5;
 
     this->position.setPosition({this->getPosition().x - mov, this->getPosition().y});
+    this->currentDirection = Left;
 }
 
 void Player::moveRight() {
     const float mov = this->speedFactor * 0.5;
 
     this->position.setPosition({this->getPosition().x + mov, this->getPosition().y});
+    this->currentDirection = Right;
 }
 
 PositionData Player::getPosition() {
@@ -45,5 +50,5 @@ PositionData Player::getPosition() {
 }
 
 void Player::castSpell(unsigned int spellId, Projectiles& projectiles) {
-    projectiles.addProjectile(spellId, {this->getPosition().x, this->getPosition().y});
+    projectiles.addProjectile(spellId, {this->getPosition().x, this->getPosition().y}, this->currentDirection);
 }

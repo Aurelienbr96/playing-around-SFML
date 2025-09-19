@@ -126,7 +126,6 @@ int main() {
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent())
         {
-
             if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
                 keyStates[keyPressed->scancode] = true;
             }
