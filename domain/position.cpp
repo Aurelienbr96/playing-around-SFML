@@ -5,6 +5,7 @@
 #include "position.h"
 
 
+
 Position::Position(float x, float y, unsigned int width, unsigned int height): x(x), y(y), width(width), height(height) {
 }
 
@@ -17,3 +18,8 @@ PositionData Position::getPosition() {
     return {x, y};
 }
 
+void Position::updatePosition(PositionData pos) {
+        this->x = this->x + 0.2;
+        this->y = this->y - 0.2;
+
+}

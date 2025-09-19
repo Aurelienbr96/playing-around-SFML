@@ -1,7 +1,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
+#include "application/spell-book.h"
 #include "infra/SFMLRenderer.h"
 #include "application/sprite-library.h"
+#include "domain/fireball.h"
+#include "world/projectiles.h"
 
 const sf::Texture getTexture(std::string path) {
     const sf::Texture texture(path, false, sf::IntRect({0, 0}, {100, 100}));
@@ -76,7 +80,7 @@ int main() {
 
     clock.start();
 
-    Player player = Player({10, 10}, 4, Sprite::Name::FlyingBoonCalm, 1, {25, 25});
+    Player player = Player({10, 10}, 1, Sprite::Name::FlyingBoonCalm, 1, {25, 25});
 
     SFMLRenderer smflRenderer = SFMLRenderer(&window, spriteLibrary);
 
@@ -116,37 +120,42 @@ int main() {
 
     Projectiles projectiles = Projectiles(spellBook, spriteLibrary);
 
+    std::unordered_map<sf::Keyboard::Scancode, bool> keyStates;
+
     int loop = 0;
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent())
         {
-            if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-            {
-                if (keyPressed->scancode == sf::Keyboard::Scan::Left || keyPressed->scancode == sf::Keyboard::Scan::A) {
-                    std::cout << "Left key pressed" << std::endl;
-                    player.moveLeft();
-                }
-                if (keyPressed->scancode == sf::Keyboard::Scan::Right || keyPressed->scancode == sf::Keyboard::Scan::D) {
-                    std::cout << "Left key pressed" << std::endl;
-                    player.moveRight();
-                }
-                if (keyPressed->scancode == sf::Keyboard::Scan::Down || keyPressed->scancode == sf::Keyboard::Scan::S) {
-                    std::cout << "Left key pressed" << std::endl;
-                    player.moveDown();
-                }
-                if (keyPressed->scancode == sf::Keyboard::Scan::Up || keyPressed->scancode == sf::Keyboard::Scan::W) {
-                    std::cout << "Left key pressed" << std::endl;
-                    player.moveUp();
-                }
 
-                if (keyPressed->scancode == sf::Keyboard::Scan::Space) {
-                    player.castSpell(1, projectiles);
-                }
+            if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
+                keyStates[keyPressed->scancode] = true;
+            }
+            if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>()) {
+                keyStates[keyReleased->scancode] = false;
+            }
+
+            // Casting
+            if (keyStates[sf::Keyboard::Scan::Space]) {
+                player.castSpell(1, projectiles);
             }
             // "close requested" event: we close the window
             if (event->is<sf::Event::Closed>())
                 window.close();
         }
+
+        if (keyStates[sf::Keyboard::Scan::Left] || keyStates[sf::Keyboard::Scan::A]) {
+            player.moveLeft();
+        }
+        if (keyStates[sf::Keyboard::Scan::Right] || keyStates[sf::Keyboard::Scan::D]) {
+            player.moveRight();
+        }
+        if (keyStates[sf::Keyboard::Scan::Up] || keyStates[sf::Keyboard::Scan::W]) {
+            player.moveUp();
+        }
+        if (keyStates[sf::Keyboard::Scan::Down] || keyStates[sf::Keyboard::Scan::S]) {
+            player.moveDown();
+        }
+
 
         window.clear();
 
@@ -175,6 +184,7 @@ int main() {
         player.draw(smflRenderer);
 
         auto ongoingProjectiles = projectiles.getProjectiles();
+        projectiles.update();
 
         for (int i = 0; i < ongoingProjectiles.size(); i++) {
             Fireball ongoingProjectile = ongoingProjectiles[i];

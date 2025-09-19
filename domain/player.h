@@ -12,9 +12,8 @@ class Player: public DrawableEntity {
     int speedFactor;
     unsigned int playerId;
 
-
 public:
-    explicit Player(PositionData pos, int speedFactor, Sprite::Name spriteName, unsigned int playerId, Rect rect);
+    explicit Player(PositionData pos, float speedFactor, Sprite::Name spriteName, unsigned int playerId, Rect rect);
     void moveLeft();
     void moveRight();
     void moveUp();

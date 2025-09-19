@@ -5,6 +5,7 @@
 #ifndef POSITION_H
 #define POSITION_H
 
+
 struct PositionData {
     float x;
     float y;
@@ -25,6 +26,7 @@ class Position {
 
     PositionData getPosition();
     void setPosition(PositionData pos);
+    void updatePosition(PositionData pos);
 };
 
 #endif //POSITION_H

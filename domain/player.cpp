@@ -1,11 +1,12 @@
 //
 // Created by Aurélien Brachet on 08/09/2025.
 //
-#include "player.h"
 
 #include <utility>
 #include "position.h"
-Player::Player(PositionData pos, int speedFactor, Sprite::Name spriteName, unsigned int playerId, Rect rect)
+#include "player.h"
+
+Player::Player(PositionData pos, float speedFactor, Sprite::Name spriteName, unsigned int playerId, Rect rect)
     : DrawableEntity(Position(pos.x, pos.y, rect.width, rect.height), spriteName), // call base constructor
       speedFactor(speedFactor), playerId(playerId) {}
 
@@ -13,7 +14,7 @@ Player::Player(PositionData pos, int speedFactor, Sprite::Name spriteName, unsig
 // MOVEMENT METHODS
 
 void Player::moveDown() {
-    const float mov = this->speedFactor * 2;
+    const float mov = this->speedFactor * 0.5;
     this->position.setPosition({this->getPosition().x, this->getPosition().y + mov});
 }
 
@@ -22,20 +23,19 @@ void Player::setSpriteName(Sprite::Name spriteName) {
 }
 
 void Player::moveUp() {
-    const float mov = this->speedFactor * 2;
+    const float mov = this->speedFactor * 0.5;
 
     this->position.setPosition({this->getPosition().x, this->getPosition().y - mov});
 }
 
 void Player::moveLeft() {
-    const float mov = this->speedFactor * 2;
+    const float mov = this->speedFactor * 0.5;
 
     this->position.setPosition({this->getPosition().x - mov, this->getPosition().y});
-
 }
 
 void Player::moveRight() {
-    const float mov = this->speedFactor * 2;
+    const float mov = this->speedFactor * 0.5;
 
     this->position.setPosition({this->getPosition().x + mov, this->getPosition().y});
 }

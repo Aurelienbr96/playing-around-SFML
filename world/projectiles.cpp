@@ -4,6 +4,7 @@
 
 #include "projectiles.h"
 #include "../domain/fireball.h"
+#include "../domain/player.h"
 
 Projectiles::Projectiles(SpellBook& spellbook, SpriteLibrary& spriteLibrary): spellbook(spellbook), spritelibrary(spriteLibrary) {
 }
@@ -17,6 +18,11 @@ void Projectiles::addProjectile(unsigned int projectileId, PositionData intialPo
     }
 }
 
+void Projectiles::update() {
+    for (auto& projectile : this->projectiles) {
+        projectile.move({0,0.2});
+    }
+}
 
 std::vector<Fireball> Projectiles::getProjectiles() const {
     return this->projectiles;

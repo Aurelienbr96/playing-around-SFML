@@ -8,7 +8,6 @@
 
 #include "../application/spell-book.h"
 #include "../application/sprite-library.h"
-#include "../domain/drawable-entity.h"
 #include "../domain/fireball.h"
 
 class Projectiles {
@@ -19,6 +18,7 @@ class Projectiles {
     Projectiles(SpellBook& spellbook, SpriteLibrary& spritelibrary);
     std::vector<Fireball> getProjectiles() const;
     void addProjectile(unsigned int spellId, PositionData initialPosition);
+    void update();
     void deleteProjectile(unsigned int projectilId);
 };
 

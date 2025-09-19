@@ -6,10 +6,10 @@
 #define SPELL_H
 #include "drawable-entity.h"
 
-
 class Fireball: public DrawableEntity {
     public:
     explicit Fireball(PositionData pos, Sprite::Name spriteName, Rect rect);
+    void move(PositionData pos);
 };
 
 #endif //SPELL_H
