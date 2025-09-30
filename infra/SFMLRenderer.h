@@ -14,9 +14,9 @@ class SFMLRenderer: public Renderer {
     SpriteLibrary spriteLibrary;
     sf::RenderWindow *window;
     public:
-    SFMLRenderer(sf::RenderWindow *w, SpriteLibrary& spriteLibrary);
+    SFMLRenderer(sf::RenderWindow *w, const SpriteLibrary& spriteLibrary);
 
-    void render(PositionData pos, Sprite::Name spriteName);
+    void render(PositionData pos, Sprite::Name spriteName) override;
 };
 
 #endif //SFMLRENDERER_H

@@ -1,9 +1,9 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #include "application/spell-book.h"
 #include "infra/SFMLRenderer.h"
 #include "application/sprite-library.h"
+#include "application/tile_map.h"
 #include "domain/fireball.h"
 #include "world/projectiles.h"
 
@@ -14,22 +14,16 @@ const sf::Texture getTexture(std::string path) {
 
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "SFML + CLion + Homebrew");
+    unsigned int WINDOW_WIDTH = 768; // 15
+    unsigned int WINDOW_HEIGHT = 768; // 30
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "SFML + CLion + Homebrew");
 
     // set up textures
-    // const sf::Texture texture("../graphics/player1.png", false, sf::IntRect({0, 0}, {100, 100}));
+
     auto texture = getTexture("../graphics/player1.png");
     auto player1high = getTexture("../graphics/player-high-wing.png");
     auto player2low = getTexture("../graphics/player-low-wing.png");
     auto fireball = getTexture("../graphics/fireball.png");
-    const sf::Texture midBackground1("../graphics/mid-background1.png", false, sf::IntRect({0, 0}, {100, 100}));
-    const sf::Texture midBackground2("../graphics/mid-background2.png", false, sf::IntRect({0, 0}, {100, 100}));
-
-    const sf::Texture highBackground1("../graphics/high-background1.png", false, sf::IntRect({0, 0}, {100, 100}));
-    const sf::Texture highBackground2("../graphics/high-background2.png", false, sf::IntRect({0, 0}, {100, 100}));
-
-    const sf::Texture lowBackground1("../graphics/low-background1.png", false, sf::IntRect({0, 0}, {100, 100}));
-    const sf::Texture lowBackground2("../graphics/low-background2.png", false, sf::IntRect({0, 0}, {100, 100}));
 
     // set up sprites
     sf::Sprite sprite(texture);
@@ -41,38 +35,13 @@ int main() {
     sf::Sprite player2lowsprite(player2low);
     player2lowsprite.setScale({2, 2});
 
-    sf::Sprite midBackgroundSprite1(midBackground1);
-    sf::Sprite midBackgroundSprite2(midBackground2);
-
-    sf::Sprite highBackgroundSprite1(highBackground1);
-    sf::Sprite highBackgroundSprite2(highBackground2);
-
-    sf::Sprite lowBackgroundSprite1(lowBackground1);
-    sf::Sprite lowBackgroundSprite2(lowBackground2);
-
     sf::Sprite fireballSprite(fireball);
-
-    midBackgroundSprite1.setScale({2, 2});
-    midBackgroundSprite2.setScale({2, 2});
-    highBackgroundSprite1.setScale({2, 2});
-    highBackgroundSprite2.setScale({2, 2});
-    lowBackgroundSprite1.setScale({2, 2});
-    lowBackgroundSprite2.setScale({2, 2});
 
 
     SpriteLibrary spriteLibrary;
     spriteLibrary.addSprite(Sprite::Name::FlyingBoonCalm, sprite);
     spriteLibrary.addSprite(Sprite::Name::FlyingBoonUp, player1highsprite);
     spriteLibrary.addSprite(Sprite::Name::FlyingBoonDown, player2lowsprite);
-
-    spriteLibrary.addSprite(Sprite::Name::BackgroundMedium, midBackgroundSprite1);
-    spriteLibrary.addSprite(Sprite::Name::BackgroundMedium2, midBackgroundSprite2);
-
-    spriteLibrary.addSprite(Sprite::Name::BackgroundHigh, highBackgroundSprite1);
-    spriteLibrary.addSprite(Sprite::Name::BackgroundHigh2, highBackgroundSprite2);
-
-    spriteLibrary.addSprite(Sprite::Name::BackgroundLow, lowBackgroundSprite1);
-    spriteLibrary.addSprite(Sprite::Name::BackgroundLow2, lowBackgroundSprite2);
 
     spriteLibrary.addSprite(Sprite::Name::Fireball, fireballSprite);
 
@@ -94,22 +63,6 @@ int main() {
             {7, Sprite::Name::BackgroundLow2}
     };
 
-    std::vector<std::vector<unsigned int>> bgtileMap = {
-        { 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5 },
-        { 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5 },
-        { 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5 },
-        { 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5, 4, 5 },
-        { 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2 ,3 },
-        { 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7 },
-        { 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7 },
-        { 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7 },
-        { 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7 },
-        { 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7 },
-        { 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7 },
-        { 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7 },
-        { 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7 },
-    };
-
     SpellDef fireballSpell = SpellDef{"fireball", Sprite::Name::Fireball, 100, 4, 60};
 
     std::unordered_map<unsigned int, SpellDef> spellBookMap = {
@@ -121,6 +74,71 @@ int main() {
     Projectiles projectiles = Projectiles(spellBook, spriteLibrary);
 
     std::unordered_map<sf::Keyboard::Scancode, bool> keyStates;
+    sf::VertexArray triangle(sf::PrimitiveType::Triangles, 3);
+
+
+    TileMap map;
+    unsigned int level[16][16] = {
+        {1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {9, 10, 11, 12, 9, 10, 11, 12, 9, 10, 11, 12, 9, 10, 11, 12},
+        {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
+        {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
+        {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
+        {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
+        {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
+        {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
+        {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
+        {17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17},
+    };
+
+    unsigned int level2[16][16] = {
+        {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+        {13, 14, 13, 14, 13, 14, 13, 14, 13, 14, 13, 14, 13, 14, 13, 14},
+        {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+    };
+
+    unsigned int level3[16][16] = {
+        {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7},
+        {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7},
+        {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7},
+        {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7},
+        {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7},
+        {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7},
+        {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7},
+        {15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16, 15, 16},
+        {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
+        {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
+        {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
+        {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
+        {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
+        {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
+        {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
+        {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
+    };
+
+    if (!map.load("../graphics/tilemap-backgrounds_packed.png", {24, 24}, level3, 16, 16))
+        return -1;
+
+    map.setScale({2,2});
 
     int loop = 0;
     while (window.isOpen()) {
@@ -158,12 +176,6 @@ int main() {
 
         window.clear();
 
-        for (int i = 0; i< bgtileMap.size(); i++) {
-            for (int j = 0; j< bgtileMap[i].size(); j++) {
-                auto spriteName = mapIntToSprite.at(bgtileMap[i][j]);
-                smflRenderer.render({static_cast<float>(j * 48), static_cast<float>(i * 48)}, spriteName);
-            }
-        }
 
         if (clock.getElapsedTime().asMilliseconds() > 150) {
             if (loop == 0) {
@@ -176,11 +188,11 @@ int main() {
                 player.setSpriteName(Sprite::Name::FlyingBoonDown);
                 loop = 0;
             }
-
             clock.restart();
         }
-
+        window.draw(map);
         player.draw(smflRenderer);
+
 
         auto ongoingProjectiles = projectiles.getProjectiles();
         projectiles.update();

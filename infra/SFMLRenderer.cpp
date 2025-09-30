@@ -7,8 +7,7 @@
 #include "../../../../../opt/homebrew/Cellar/sfml/3.0.1/include/SFML/Graphics/RenderWindow.hpp"
 
 
-SFMLRenderer::SFMLRenderer(sf::RenderWindow *w, SpriteLibrary& spriteLibrary): window(w), spriteLibrary(spriteLibrary) {}
-
+SFMLRenderer::SFMLRenderer(sf::RenderWindow *w, const SpriteLibrary& spriteLibrary): spriteLibrary(spriteLibrary), window(w) {}
 
 void SFMLRenderer::render(PositionData pos, Sprite::Name spriteName) {
     auto sprite = this->spriteLibrary.getSprite(spriteName);
