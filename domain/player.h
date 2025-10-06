@@ -20,6 +20,7 @@ public:
     void moveRight();
     void moveUp();
     void moveDown();
+    void moveTo(PositionData pos);
     void setSpriteName(Sprite::Name spriteName);
     void castSpell(unsigned int spellId, Projectiles& projectiles);
 

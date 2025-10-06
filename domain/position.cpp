@@ -18,6 +18,10 @@ PositionData Position::getPosition() {
     return {x, y};
 }
 
+Rect Position::getRect() {
+    return {this->height, this->width};
+}
+
 void Position::updatePosition(PositionData pos) {
         this->x = this->x + pos.x;
         this->y = this->y - pos.y;

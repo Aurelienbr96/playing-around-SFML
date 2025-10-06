@@ -15,6 +15,9 @@ class DrawableEntity {
         DrawableEntity(Position pos, Sprite::Name spriteName)
             : position(pos), spriteName(spriteName) {}
         void draw(Renderer& renderer);
+
+        PositionData getPosition() const;
+        Rect getSize() const;
 };
 
 #endif //DRAWABLE_ENTITY_H

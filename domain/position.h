@@ -25,6 +25,7 @@ class Position {
     Position(float x, float y, unsigned int width, unsigned int height);
 
     PositionData getPosition();
+    Rect getRect();
     void setPosition(PositionData pos);
     void updatePosition(PositionData pos);
 };

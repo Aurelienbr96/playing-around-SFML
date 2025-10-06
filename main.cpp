@@ -4,6 +4,7 @@
 #include "infra/SFMLRenderer.h"
 #include "application/sprite-library.h"
 #include "application/tile_map.h"
+#include "domain/colisionableEntity.h"
 #include "domain/fireball.h"
 #include "world/projectiles.h"
 
@@ -21,6 +22,7 @@ int main() {
     // set up textures
 
     auto texture = getTexture("../graphics/player1.png");
+    auto box = getTexture("../graphics/box.png");
     auto player1high = getTexture("../graphics/player-high-wing.png");
     auto player2low = getTexture("../graphics/player-low-wing.png");
     auto fireball = getTexture("../graphics/fireball.png");
@@ -28,6 +30,9 @@ int main() {
     // set up sprites
     sf::Sprite sprite(texture);
     sprite.setScale({2, 2});
+
+    sf::Sprite boxSprite(box);
+    boxSprite.setScale({2, 2});
 
     sf::Sprite player1highsprite(player1high);
     player1highsprite.setScale({2, 2});
@@ -45,23 +50,17 @@ int main() {
 
     spriteLibrary.addSprite(Sprite::Name::Fireball, fireballSprite);
 
+    spriteLibrary.addSprite(Sprite::Box, boxSprite);
+
     sf::Clock clock;
 
     clock.start();
 
     Player player = Player({10, 10}, 1, Sprite::Name::FlyingBoonCalm, 1, {25, 25});
 
+    ColisionableEntity boxC = ColisionableEntity({100, 100}, Sprite::Box, {25, 25});
+
     SFMLRenderer smflRenderer = SFMLRenderer(&window, spriteLibrary);
-
-
-    std::unordered_map<unsigned int, Sprite::Name> mapIntToSprite = {
-            {4, Sprite::Name::BackgroundHigh2},
-            {5, Sprite::Name::BackgroundHigh},
-            {2, Sprite::Name::BackgroundMedium},
-            {3, Sprite::Name::BackgroundMedium2},
-            {6, Sprite::Name::BackgroundLow},
-            {7, Sprite::Name::BackgroundLow2}
-    };
 
     SpellDef fireballSpell = SpellDef{"fireball", Sprite::Name::Fireball, 100, 4, 60};
 
@@ -99,21 +98,21 @@ int main() {
 
     unsigned int level2[16][16] = {
         {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-{5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+            {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
         {13, 14, 13, 14, 13, 14, 13, 14, 13, 14, 13, 14, 13, 14, 13, 14},
         {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
-{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
-{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
-{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
-{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
-{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
-{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
-{21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+            {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+            {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+            {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+            {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+            {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+            {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
+            {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21},
     };
 
     unsigned int level3[16][16] = {
@@ -161,16 +160,25 @@ int main() {
         }
 
         if (keyStates[sf::Keyboard::Scan::Left] || keyStates[sf::Keyboard::Scan::A]) {
-            player.moveLeft();
+            if (!boxC.willColide(player)) {
+                player.moveLeft();
+            }
         }
         if (keyStates[sf::Keyboard::Scan::Right] || keyStates[sf::Keyboard::Scan::D]) {
-            player.moveRight();
+            if (!boxC.willColide(player)) {
+                player.moveRight();
+            }
+
         }
         if (keyStates[sf::Keyboard::Scan::Up] || keyStates[sf::Keyboard::Scan::W]) {
-            player.moveUp();
+            if (!boxC.willColide(player)) {
+                player.moveUp();
+            }
         }
         if (keyStates[sf::Keyboard::Scan::Down] || keyStates[sf::Keyboard::Scan::S]) {
-            player.moveDown();
+            if (!boxC.willColide(player)) {
+                player.moveDown();
+            }
         }
 
 
@@ -192,6 +200,9 @@ int main() {
         }
         window.draw(map);
         player.draw(smflRenderer);
+
+        boxC.draw(smflRenderer);
+
 
 
         auto ongoingProjectiles = projectiles.getProjectiles();

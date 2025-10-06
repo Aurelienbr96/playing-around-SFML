@@ -15,7 +15,7 @@ Player::Player(PositionData pos, float speedFactor, Sprite::Name spriteName, uns
 // MOVEMENT METHODS
 
 void Player::moveDown() {
-    const float mov = this->speedFactor * 0.5;
+    const float mov = this->speedFactor * 0.1;
     this->position.setPosition({this->getPosition().x, this->getPosition().y + mov});
     this->currentDirection = Down;
 }
@@ -25,21 +25,26 @@ void Player::setSpriteName(Sprite::Name spriteName) {
 }
 
 void Player::moveUp() {
-    const float mov = this->speedFactor * 0.5;
+    const float mov = this->speedFactor * 0.1;
 
     this->position.setPosition({this->getPosition().x, this->getPosition().y - mov});
     this->currentDirection = Up;
 }
 
 void Player::moveLeft() {
-    const float mov = this->speedFactor * 0.5;
+    const float mov = this->speedFactor * 0.1;
 
     this->position.setPosition({this->getPosition().x - mov, this->getPosition().y});
     this->currentDirection = Left;
 }
 
+void Player::moveTo(PositionData position) {
+    this->position.setPosition({position.x, position.y});
+    this->currentDirection = Left;
+}
+
 void Player::moveRight() {
-    const float mov = this->speedFactor * 0.5;
+    const float mov = this->speedFactor * 0.1;
 
     this->position.setPosition({this->getPosition().x + mov, this->getPosition().y});
     this->currentDirection = Right;
