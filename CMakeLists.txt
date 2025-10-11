@@ -31,9 +31,6 @@ add_executable(MySFMLApp main.cpp
         domain/colisionableEntity.h
         world/colisionHandler.cpp
         world/colisionHandler.h
-        domain/command.h
-        domain/move/moveLeft.cpp
-        domain/move/moveLeft.h
 )
 
 # Link SFML (modern target names)
