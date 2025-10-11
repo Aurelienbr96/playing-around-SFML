@@ -4,8 +4,8 @@
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
+
 #include "direction.h"
-#include "drawable-entity.h"
 #include "position.h"
 #include "../world/projectiles.h"
 
@@ -20,11 +20,12 @@ public:
     void moveRight();
     void moveUp();
     void moveDown();
+    PositionData getNextPosition(Direction direction) const;
     void moveTo(PositionData pos);
     void setSpriteName(Sprite::Name spriteName);
     void castSpell(unsigned int spellId, Projectiles& projectiles);
 
-    PositionData getPosition();
+    PositionData getPosition() const;
 };
 
 #endif //CHARACTER_H

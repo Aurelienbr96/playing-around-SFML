@@ -14,6 +14,24 @@ Player::Player(PositionData pos, float speedFactor, Sprite::Name spriteName, uns
 
 // MOVEMENT METHODS
 
+PositionData Player::getNextPosition(Direction direction) const {
+    const float mov = this->speedFactor * 0.1;
+    if (direction == Direction::Down) {
+        return {this->getPosition().x, this->getPosition().y + mov};
+    }
+    if (direction == Direction::Right) {
+        return {this->getPosition().x + mov, this->getPosition().y};
+    }
+    if (direction == Direction::Left) {
+        return {this->getPosition().x - mov, this->getPosition().y};
+    }
+    if (direction == Direction::Up) {
+        return {this->getPosition().x, this->getPosition().y - mov};
+    }
+    // sketchy imo
+    return {this->getPosition().x + mov, this->getPosition().y};
+}
+
 void Player::moveDown() {
     const float mov = this->speedFactor * 0.1;
     this->position.setPosition({this->getPosition().x, this->getPosition().y + mov});
@@ -50,7 +68,7 @@ void Player::moveRight() {
     this->currentDirection = Right;
 }
 
-PositionData Player::getPosition() {
+PositionData Player::getPosition() const {
     return this->position.getPosition();
 }
 

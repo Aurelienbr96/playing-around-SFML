@@ -24,7 +24,7 @@ class Position {
     public:
     Position(float x, float y, unsigned int width, unsigned int height);
 
-    PositionData getPosition();
+    PositionData getPosition() const;
     Rect getRect();
     void setPosition(PositionData pos);
     void updatePosition(PositionData pos);

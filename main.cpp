@@ -160,23 +160,23 @@ int main() {
         }
 
         if (keyStates[sf::Keyboard::Scan::Left] || keyStates[sf::Keyboard::Scan::A]) {
-            if (!boxC.willColide(player)) {
+            if (!boxC.willColide(player, Left)) {
                 player.moveLeft();
             }
         }
         if (keyStates[sf::Keyboard::Scan::Right] || keyStates[sf::Keyboard::Scan::D]) {
-            if (!boxC.willColide(player)) {
+            if (!boxC.willColide(player, Right)) {
                 player.moveRight();
             }
 
         }
         if (keyStates[sf::Keyboard::Scan::Up] || keyStates[sf::Keyboard::Scan::W]) {
-            if (!boxC.willColide(player)) {
+            if (!boxC.willColide(player, Up)) {
                 player.moveUp();
             }
         }
         if (keyStates[sf::Keyboard::Scan::Down] || keyStates[sf::Keyboard::Scan::S]) {
-            if (!boxC.willColide(player)) {
+            if (!boxC.willColide(player, Down)) {
                 player.moveDown();
             }
         }

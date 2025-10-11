@@ -14,7 +14,7 @@ void Position::setPosition(PositionData pos) {
     this->y = pos.y;
 }
 
-PositionData Position::getPosition() {
+PositionData Position::getPosition() const {
     return {x, y};
 }
 
