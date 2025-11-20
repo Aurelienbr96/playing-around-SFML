@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 
+#include "application/level1.h"
 #include "application/spell-book.h"
 #include "infra/SFMLRenderer.h"
 #include "application/sprite-library.h"
@@ -134,7 +135,9 @@ int main() {
         {23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23},
     };
 
-    if (!map.load("../graphics/tilemap-backgrounds_packed.png", {24, 24}, level3, 16, 16))
+    Level1 firstLevel = Level1();
+
+    if (!map.load("../graphics/tilemap-backgrounds_packed.png", {24, 24}, firstLevel.getLevel(), 16, 16))
         return -1;
 
     map.setScale({2,2});

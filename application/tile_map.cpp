@@ -20,7 +20,7 @@ int getTileNumber(unsigned int tileNumber) {
     return 0;
 }
 
-bool  TileMap::load(const std::filesystem::path& tileset, sf::Vector2u tileSize, const unsigned int (&map)[16][16], unsigned int width, unsigned int height)
+bool  TileMap::load(const std::filesystem::path& tileset, sf::Vector2u tileSize, std::vector<std::vector<unsigned int>>& map, unsigned int width, unsigned int height)
     {
         // load the tileset texture
         if (!m_tileset.loadFromFile(tileset))

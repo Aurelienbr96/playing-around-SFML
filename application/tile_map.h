@@ -14,7 +14,7 @@ class TileMap: public sf::Drawable, public sf::Transformable {
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     public:
     TileMap() = default;
-    bool load(const filesystem::path& tileset, sf::Vector2u tileSize, const unsigned int (&map)[16][16], unsigned int width, unsigned int height);
+    bool load(const filesystem::path& tileset, sf::Vector2u tileSize, std::vector<std::vector<unsigned int>>& map, unsigned int width, unsigned int height);
 };
 
 #endif //TILE_MAP_H
